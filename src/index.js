@@ -50,6 +50,8 @@ const api = createApi({
   endpoints: (build) => ({
     pokemonList: build.query({
       async queryFn() {
+        // simulateLoading won't hit second time
+        // cause rtk query does some caching (in memory I think...)
         await simulateLoading();
         return { data: fakePokemonListing };
       },
