@@ -1,3 +1,6 @@
+// https://egghead.io/courses/rtk-query-basics-query-endpoints-data-flow-and-typescript-57ea3c43
+// TYPE git tag to see the app evolve from fake data to real data to redux
+
 import React from "react";
 import ReactDOM from "react-dom/client";
 import {
@@ -68,6 +71,7 @@ const store = configureStore({
   reducer: {
     [api.reducerPath]: api.reducer,
   },
+  // boiler plate code I don't quite understand
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(api.middleware),
 });
