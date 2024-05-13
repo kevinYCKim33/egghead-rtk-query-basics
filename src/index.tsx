@@ -40,21 +40,24 @@ const api = createApi({
     baseUrl: "https://pokeapi.co/api/v2/",
   }),
   endpoints: (build) => ({
+    // <WhatItReturns, ArgumentsItAccepts>
     pokemonList: build.query<PokemonListing, void>({
       // has to be queryFn()
       query() {
         return {
           // these are specific to `fetchBaseQuery`
-          url: "pokemon",
+          url: "pokemon", // essentially https://pokeapi.co/api/v2/pokemon cause of baseUrl
           params: { limit: 9 },
+          // cleaner than 'pokemon?limit=9'
           // all the different arguments that you could also pass into the `fetch` "init" option
           // see https://developer.mozilla.org/en-US/docs/Web/API/fetch#parameters
           method: "GET", // GET is the default, this could be skipped
         };
       },
     }),
+    // <WhatItReturns, ArgumentsItAccepts>
     pokemonDetail: build.query<PokemonDetailData, { name: string }>({
-      query: ({ name }) => `pokemon/${name}/`,
+      query: ({ name }) => `pokemon/${name}/`, // essentially https://pokeapi.co/api/v2/pokemon/:name/ cause of baseUrl
     }),
   }),
 });
