@@ -1,6 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import {
+  ApiProvider,
+  createApi,
+  fetchBaseQuery,
+} from "@reduxjs/toolkit/query/react";
 
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
@@ -31,11 +35,13 @@ interface PokemonDetailData {
 }
 
 const api = createApi({
+  // always needs a baseQuery
   baseQuery: fetchBaseQuery({
     baseUrl: "https://pokeapi.co/api/v2/",
   }),
   endpoints: (build) => ({
     pokemonList: build.query<PokemonListing, void>({
+      // has to be queryFn()
       query() {
         return {
           // these are specific to `fetchBaseQuery`
@@ -67,7 +73,10 @@ const root = ReactDOM.createRoot(document.getElementById("root")!);
 root.render(
   <React.StrictMode>
     <Provider store={store}>
+      {/* I think this proves you don't need redux to use rtk-query */}
+      {/* <ApiProvider api={api}> */}
       <App />
+      {/* </ApiProvider> */}
     </Provider>
   </React.StrictMode>
 );
